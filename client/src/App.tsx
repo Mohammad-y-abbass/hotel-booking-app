@@ -5,7 +5,14 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Layout></Layout>} />
+        <Route
+          path='/'
+          element={
+            <Layout>
+              <h1>Hello</h1>
+            </Layout>
+          }
+        />
         <Route path='/sign-in' element={<h1>Si</h1>} />
       </Routes>
     </Router>
