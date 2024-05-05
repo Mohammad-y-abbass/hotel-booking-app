@@ -1,5 +1,6 @@
 import User from '../models/user';
 import { Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -24,8 +25,21 @@ export const signup = async (req: Request, res: Response) => {
 
     await user.save();
 
-    res.status(201).json({ message: 'User created successfully' });
+    const token = jwt.sign(
+      { userId: user.id },
+      process.env.JWT_SECRET_KEY as string,
+      { expiresIn: '1d' }
+    );
+
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 86400000,
+    });
+
+    res.sendStatus(200);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: 'Something went wrong' });
   }
 };
