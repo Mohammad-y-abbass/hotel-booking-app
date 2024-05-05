@@ -42,7 +42,7 @@ export const signup = async (req: Request, res: Response) => {
       maxAge: 86400000,
     });
 
-    res.sendStatus(200);
+    res.status(200).send({ message: 'User created successfully' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: 'Something went wrong' });
