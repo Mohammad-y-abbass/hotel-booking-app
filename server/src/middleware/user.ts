@@ -8,3 +8,8 @@ export const validateSignup = [
     min: 6,
   }),
 ];
+
+export const validateSignin = [
+  check('email', 'Email is required').isEmail(),
+  check('password', 'Password is required').isLength({ min: 6 }),
+];
