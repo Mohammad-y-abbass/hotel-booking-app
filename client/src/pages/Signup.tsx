@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import * as apiClient from '../api-client';
 
-type SingupForm = {
+export type SignupForm = {
   firstName: string;
   lastName: string;
   email: string;
@@ -14,10 +16,21 @@ const Signup = () => {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<SingupForm>();
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  } = useForm<SignupForm>();
+
+  const mutation = useMutation(apiClient.signup, {
+    onSuccess: () => {
+      console.log('signup success');
+    },
+    onError: (error: Error) => {
+      console.log(error.message);
+    },
   });
+
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
+  });
+
   return (
     <form className='flex flex-col gap-5' onSubmit={onSubmit}>
       <h2 className='text-3xl font-bold'>Create an account</h2>
@@ -33,7 +46,7 @@ const Signup = () => {
           )}
         </label>
         <label className='flex-1 text-sm font-bold text-grey-700'>
-          First Name
+          Last Name
           <input
             className='w-full px-2 py-1 font-normal border rounded'
             {...register('lastName', { required: 'This filed is required' })}
