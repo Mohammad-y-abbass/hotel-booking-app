@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import * as apiClient from '../api-client';
+import { useAppContext } from '../contexts/AppContext';
 
 export type SignupForm = {
   firstName: string;
@@ -11,6 +12,8 @@ export type SignupForm = {
 };
 
 const Signup = () => {
+  const { showToast } = useAppContext();
+
   const {
     register,
     watch,
@@ -20,10 +23,16 @@ const Signup = () => {
 
   const mutation = useMutation(apiClient.signup, {
     onSuccess: () => {
-      console.log('signup success');
+      showToast({
+        message: 'User created successfully',
+        type: 'SUCCESS',
+      });
     },
     onError: (error: Error) => {
-      console.log(error.message);
+      showToast({
+        message: error.message,
+        type: 'ERROR',
+      });
     },
   });
 
