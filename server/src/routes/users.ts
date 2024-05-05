@@ -4,3 +4,5 @@ import { signup } from '../controllers/users';
 const router = Router();
 
 router.post('/signup', signup);
+
+export default router;
