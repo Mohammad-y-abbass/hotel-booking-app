@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import * as apiClient from '../api-client';
 import { useAppContext } from '../contexts/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 export type SignupForm = {
   firstName: string;
@@ -12,6 +13,7 @@ export type SignupForm = {
 };
 
 const Signup = () => {
+  const navigate = useNavigate();
   const { showToast } = useAppContext();
 
   const {
@@ -27,6 +29,7 @@ const Signup = () => {
         message: 'User created successfully',
         type: 'SUCCESS',
       });
+      navigate('/');
     },
     onError: (error: Error) => {
       showToast({
