@@ -4,6 +4,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import usersRouter from './routes/users';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 const connect_to_db = async () => {
   try {
@@ -30,6 +31,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.use('/api/users', usersRouter);
 
