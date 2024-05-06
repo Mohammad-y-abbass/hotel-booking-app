@@ -89,3 +89,7 @@ export const signin = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'something went wrong' });
   }
 };
+
+export const validateToken = async (req: Request, res: Response) => {
+  res.status(200).json({ userId: req.userId });
+};

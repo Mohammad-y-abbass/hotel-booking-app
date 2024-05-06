@@ -3,6 +3,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import usersRouter from './routes/users';
+import cookieParser from 'cookie-parser';
 
 const connect_to_db = async () => {
   try {
@@ -20,6 +21,7 @@ connect_to_db();
 
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
