@@ -93,3 +93,9 @@ export const signin = async (req: Request, res: Response) => {
 export const validateToken = async (req: Request, res: Response) => {
   res.status(200).json({ userId: req.userId });
 };
+
+export const signout = async (req: Request, res: Response) => {
+  res.cookie('auth-token', '', {
+    expires: new Date(0),
+  });
+};
