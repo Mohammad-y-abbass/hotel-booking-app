@@ -30,9 +30,9 @@ const Signin = () => {
       });
       navigate('/');
     },
-    onError: (error: Error) => {
+    onError: () => {
       showToast({
-        message: error.message,
+        message: 'Invalid Credentials',
         type: 'ERROR',
       });
     },
@@ -73,7 +73,10 @@ const Signin = () => {
       </label>
       <span className='flex items-center justify-between'>
         <span className='text-sm'>
-          Don't have an account? <Link className='font-bold underline' to='/sign-up'>Sign up</Link>
+          Don't have an account?{' '}
+          <Link className='font-bold underline' to='/sign-up'>
+            Sign up
+          </Link>
         </span>
         <button
           type='submit'
