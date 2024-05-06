@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import * as apiClient from '../api-client';
 import { useAppContext } from '../contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +15,7 @@ export type SignupForm = {
 const Signup = () => {
   const navigate = useNavigate();
   const { showToast } = useAppContext();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -24,7 +25,8 @@ const Signup = () => {
   } = useForm<SignupForm>();
 
   const mutation = useMutation(apiClient.signup, {
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries();
       showToast({
         message: 'User created successfully',
         type: 'SUCCESS',
