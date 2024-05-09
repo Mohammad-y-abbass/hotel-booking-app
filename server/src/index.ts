@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import usersRouter from './routes/users';
 import cookieParser from 'cookie-parser';
 import path from 'path';
+import { initializeApp } from 'firebase/app';
+import { firebaseConfig } from '../config/firebase.config';
 
 const connect_to_db = async () => {
   try {
@@ -19,6 +21,8 @@ const connect_to_db = async () => {
   }
 };
 connect_to_db();
+
+const firebaseApp = initializeApp(firebaseConfig);
 
 const app = express();
 
