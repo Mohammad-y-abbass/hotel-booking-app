@@ -3,6 +3,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import usersRouter from './routes/users';
+import hotelsRouter from './routes/hotels';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import { initializeApp } from 'firebase/app';
@@ -39,6 +40,7 @@ app.use(
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.use('/api/users', usersRouter);
+app.use('/api/hotels', hotelsRouter);
 
 app.listen(3001, () => {
   console.log('Server is running on port 3001');
